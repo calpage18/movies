@@ -3,7 +3,6 @@ const baseSearchURL = `https://api.themoviedb.org/3/search/movie?api_key=${apiKe
 const baseBrowseURL = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&include_adult=false&region=GB&include_video=false`
 
 export function searchMovies ({searchTerm, pageNumber}) {
-  console.log(searchTerm)
   const encodedSearchTerm = encodeURIComponent(searchTerm)
   let searchURL = `${baseSearchURL}&query=${encodedSearchTerm}`
   if (pageNumber) {

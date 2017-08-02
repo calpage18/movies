@@ -27,7 +27,6 @@ describe('<SearchView /> tests', () => {
 
   // it('should render the correct number of results', () => {
   //   wrapper.setState({movies: testMovies})
-  //   console.log(wrapper.state)
   //   expect(wrapper.find('.item')).toHaveLength(testMovies.length)
   // })
 })

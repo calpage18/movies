@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import './detail-view.css'
 
@@ -15,6 +16,13 @@ const DetailView = ({ title, overview, image, date }) => {
       </div>
     </div>
   )
+}
+
+DetailView.propTypes = {
+  image: PropTypes.string,
+  title: PropTypes.string,
+  date: PropTypes.string,
+  overview: PropTypes.string
 }
 
 export default DetailView

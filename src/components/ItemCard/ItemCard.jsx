@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import './item-card.css'
 
@@ -12,6 +13,14 @@ const ItemCard = ({ image, title, date, item, onSelect }) => {
       <span className='item__date'>{date}</span>
     </div>
   )
+}
+
+ItemCard.propTypes = {
+  image: PropTypes.string,
+  title: PropTypes.string,
+  date: PropTypes.string,
+  item: PropTypes.object,
+  onSelect: PropTypes.func
 }
 
 export default ItemCard

@@ -83,7 +83,6 @@ class SearchView extends Component {
   }
 
   clearSelectedMovie () {
-    console.log('called')
     this.setState({
       selectedMovie: null
     })
