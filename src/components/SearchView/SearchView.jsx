@@ -2,8 +2,10 @@ import React, { Component } from 'react'
 import queryString from 'query-string'
 
 import SearchBar from '../SearchBar/SearchBar'
+import ItemCard from '../ItemCard/ItemCard'
 
 import { searchMovies, browseMovies } from '../../api/api'
+import { imageBasePath } from '../../config'
 
 class SearchView extends Component {
   constructor () {
@@ -52,7 +54,18 @@ class SearchView extends Component {
     return (
       <div className='search-view'>
         <SearchBar />
-        {this.state.isSearch.toString()}
+        <div className='items'>
+          {
+            this.state.movies.length > 0 && this.state.movies.map(movie => {
+              return (
+                <ItemCard
+                  image={`${imageBasePath}${movie.poster_path}`}
+                  title={movie.title}
+                  date={movie.release_date.split('-')[0]} />
+              )
+            })
+          }
+        </div>
       </div>
     )
   }
