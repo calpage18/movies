@@ -5,7 +5,9 @@ import './search-bar.css'
 const SearchBar = (props) => {
   return (
     <div className='search-bar'>
-      Movie Search App
+      <form className='search-form'>
+        <input type='search' className='search-input' value={props.searchTerm} onChange={props.updateSearchTerm} />
+      </form>
     </div>
   )
 }

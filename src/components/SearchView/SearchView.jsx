@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import queryString from 'query-string'
+import { debounce } from 'throttle-debounce'
 
 import SearchBar from '../SearchBar/SearchBar'
 import ItemCard from '../ItemCard/ItemCard'
@@ -17,45 +17,51 @@ class SearchView extends Component {
       movies: [],
       searchTerm: '',
       pageNumber: 1,
-      isSearch: false
+      totalResults: 0,
+      totalPages: 0,
+      searchSuccess: true
     }
 
     this.browseMovies = this.browseMovies.bind(this)
+    this.updateSearchTerm = this.updateSearchTerm.bind(this)
   }
 
   browseMovies () {
     browseMovies().then(response => {
       this.setState({
-        movies: response.results
+        movies: response.results,
+        searchSuccess: response.results.length > 0
       })
     })
   }
 
   searchMovies () {
     const { searchTerm, pageNumber } = this.state
-    searchMovies({searchTerm, pageNumber})
+    searchMovies({searchTerm, pageNumber}).then(response => {
+      this.setState({
+        movies: response.results,
+        totalResults: response.total_results,
+        totalPages: response.total_pages,
+        searchSuccess: response.results.length > 0
+      })
+    })
   }
 
   componentDidMount () {
-    // If there's a searchTerm in the URL, it means we've gone back from the detail view
-    // and therefore we should restore the state the user previously had in their search results
-    const queryParams = queryString.parse(this.props.location.search)
-    const queryParamKeys = Object.keys(queryParams)
-    if (queryParamKeys.length > 0 && queryParamKeys.includes('searchTerm')) {
-      this.setState({
-        searchTerm: queryParams.searchTerm,
-        page: queryParams.page || 1,
-        isSearch: true
-      }, this.searchMovies)
-    } else {
-      this.browseMovies()
-    }
+    this.browseMovies()
+  }
+
+  updateSearchTerm (e) {
+    this.setState({
+      searchTerm: e.target.value,
+      page: 1
+    }, () => debounce(500, () => { this.searchMovies() })())
   }
 
   render () {
     return (
       <div className='search-view'>
-        <SearchBar />
+        <SearchBar searchTerm={this.state.searchTerm} updateSearchTerm={this.updateSearchTerm} />
         <div className='items'>
           {
             this.state.movies.length > 0 && this.state.movies.map(movie => {
