@@ -67,7 +67,13 @@ class SearchView extends Component {
     this.setState({
       searchTerm: e.target.value,
       page: 1
-    }, () => debounce(500, () => { this.searchMovies() })())
+    }, () => debounce(500, () => {
+      if (this.state.searchTerm.length > 0) {
+        this.searchMovies()
+      } else {
+        this.browseMovies()
+      }
+    })())
   }
 
   selectMovie (movie) {
@@ -87,11 +93,19 @@ class SearchView extends Component {
     return (
       <div className='search-view'>
         <SearchBar searchTerm={this.state.searchTerm} updateSearchTerm={this.updateSearchTerm} />
+        {
+          !this.state.searchTerm.length && (
+            <span className='upcoming-movies-title'>
+              Not sure what to search for? Here are the most popular recent movies to get you started!
+            </span>
+          )
+        }
         <div className='items'>
           {
             this.state.movies.length > 0 && this.state.movies.map(movie => {
               return (
                 <ItemCard
+                  key={movie.id}
                   image={`${imageBasePath}${movie.poster_path}`}
                   title={movie.title}
                   date={movie.release_date.split('-')[0]}
@@ -100,18 +114,23 @@ class SearchView extends Component {
               )
             })
           }
-          {
-            this.state.selectedMovie && (
-              <Modal clearSelectedItem={this.clearSelectedMovie}>
-                <DetailView
-                  title={this.state.selectedMovie.title}
-                  overview={this.state.selectedMovie.overview}
-                  image={`${imageBasePath}${this.state.selectedMovie.poster_path}`}
-                  date={this.state.selectedMovie.release_date.split('-')[0]} />
-              </Modal>
-            )
-          }
+
+          {/* Add some spacer cards if necessary to ensure last row cards are correct size  */}
+          { this.state.movies.length % 4 > 0 && <div className='item' /> }
+          { this.state.movies.length % 4 > 1 && <div className='item' /> }
+          { this.state.movies.length % 4 > 2 && <div className='item' /> }
         </div>
+        {
+          this.state.selectedMovie && (
+            <Modal clearSelectedItem={this.clearSelectedMovie}>
+              <DetailView
+                title={this.state.selectedMovie.title}
+                overview={this.state.selectedMovie.overview}
+                image={`${imageBasePath}${this.state.selectedMovie.poster_path}`}
+                date={this.state.selectedMovie.release_date.split('-')[0]} />
+            </Modal>
+          )
+        }
       </div>
     )
   }

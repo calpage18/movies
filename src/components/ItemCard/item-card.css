@@ -1,5 +1,5 @@
 .item {
-  flex: 1 1 33.333%;
+  flex: 1 1 25%;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
