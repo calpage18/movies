@@ -2,14 +2,14 @@ import React from 'react'
 
 import './item-card.css'
 
-const ItemCard = (props) => {
+const ItemCard = ({ image, title, date, item, onSelect }) => {
   return (
-    <div className='item'>
+    <div className='item' onClick={() => onSelect(item)}>
       <div className='item__image-wrapper'>
-        <img className='item__image' src={props.image} />
+        <img className='item__image' src={image} />
       </div>
-      <span className='item__title'>{props.title}</span>
-      <span className='item__date'>{props.date}</span>
+      <span className='item__title'>{title}</span>
+      <span className='item__date'>{date}</span>
     </div>
   )
 }

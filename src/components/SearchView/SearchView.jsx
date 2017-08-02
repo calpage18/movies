@@ -3,6 +3,8 @@ import { debounce } from 'throttle-debounce'
 
 import SearchBar from '../SearchBar/SearchBar'
 import ItemCard from '../ItemCard/ItemCard'
+import Modal from '../Modal/Modal'
+import DetailView from '../DetailView/DetailView'
 
 import { searchMovies, browseMovies } from '../../api/api'
 import { imageBasePath } from '../../config'
@@ -19,11 +21,14 @@ class SearchView extends Component {
       pageNumber: 1,
       totalResults: 0,
       totalPages: 0,
-      searchSuccess: true
+      searchSuccess: true,
+      selectedMovie: null
     }
 
     this.browseMovies = this.browseMovies.bind(this)
     this.updateSearchTerm = this.updateSearchTerm.bind(this)
+    this.selectMovie = this.selectMovie.bind(this)
+    this.clearSelectedMovie = this.clearSelectedMovie.bind(this)
   }
 
   browseMovies () {
@@ -42,7 +47,14 @@ class SearchView extends Component {
         movies: response.results,
         totalResults: response.total_results,
         totalPages: response.total_pages,
-        searchSuccess: response.results.length > 0
+        searchSuccess: response.results.length > 0,
+        apiError: false
+      })
+    })
+    .catch(error => {
+      console.warn(error)
+      this.setState({
+        apiError: true
       })
     })
   }
@@ -58,6 +70,19 @@ class SearchView extends Component {
     }, () => debounce(500, () => { this.searchMovies() })())
   }
 
+  selectMovie (movie) {
+    this.setState({
+      selectedMovie: movie
+    })
+  }
+
+  clearSelectedMovie () {
+    console.log('called')
+    this.setState({
+      selectedMovie: null
+    })
+  }
+
   render () {
     return (
       <div className='search-view'>
@@ -69,9 +94,22 @@ class SearchView extends Component {
                 <ItemCard
                   image={`${imageBasePath}${movie.poster_path}`}
                   title={movie.title}
-                  date={movie.release_date.split('-')[0]} />
+                  date={movie.release_date.split('-')[0]}
+                  item={movie}
+                  onSelect={this.selectMovie} />
               )
             })
+          }
+          {
+            this.state.selectedMovie && (
+              <Modal clearSelectedItem={this.clearSelectedMovie}>
+                <DetailView
+                  title={this.state.selectedMovie.title}
+                  overview={this.state.selectedMovie.overview}
+                  image={`${imageBasePath}${this.state.selectedMovie.poster_path}`}
+                  date={this.state.selectedMovie.release_date.split('-')[0]} />
+              </Modal>
+            )
           }
         </div>
       </div>

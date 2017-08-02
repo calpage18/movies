@@ -11,6 +11,9 @@ export function searchMovies ({searchTerm, pageNumber}) {
   }
   return fetch(searchURL) // eslint-disable-line
     .then(response => {
+      if (!response.ok) {
+        throw Error(response.statusText)
+      }
       return response.json()
     })
 }
@@ -20,6 +23,9 @@ export function browseMovies () {
 
   return fetch(URL) // eslint-disable-line
     .then(response => {
+      if (!response.ok) {
+        throw Error(response.statusText)
+      }
       return response.json()
     })
 }

@@ -1,0 +1,40 @@
+.detail-view {
+  padding: 15px;
+  display: flex;
+  align-items: stretch;
+  font-family: 'PT Sans', sans-serif;
+}
+
+.detail-view__sidebar {
+  flex: 1 1 0px;
+  padding-right: 15px;
+  border-right: 1px solid rgba(0,0,0,0.2);
+}
+
+.detail-view__image {
+  width: 100%;
+}
+
+.detail-view__body {
+  flex: 2 2 0px;
+  display: flex;
+  flex-direction: column;
+  padding: 0 15px;
+}
+
+.detail-view__title {
+  font-size: 24px;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.detail-view__date {
+  font-size: 18px;
+  color: #c0c0c0;
+}
+
+.detail-view__overview {
+  text-align: justify;
+  line-height: 1.25;
+}
