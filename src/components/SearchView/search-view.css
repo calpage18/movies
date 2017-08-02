@@ -1,0 +1,14 @@
+.search-view {
+  flex: 1 1 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.items {
+  display: flex;
+  align-items: stretch;
+  flex-wrap: wrap;
+  overflow-y: auto;
+  flex: 1 1 0px;
+}

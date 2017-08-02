@@ -5,7 +5,7 @@ import './header.css'
 const Header = (props) => {
   return (
     <header className='header'>
-      Movie Search App
+      Cal's Movie Finder
     </header>
   )
 }

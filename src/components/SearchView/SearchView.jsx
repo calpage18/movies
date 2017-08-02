@@ -7,6 +7,8 @@ import ItemCard from '../ItemCard/ItemCard'
 import { searchMovies, browseMovies } from '../../api/api'
 import { imageBasePath } from '../../config'
 
+import './search-view.css'
+
 class SearchView extends Component {
   constructor () {
     super()
