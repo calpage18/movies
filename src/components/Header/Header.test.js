@@ -2,16 +2,16 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import Header from './Header'
+import DetailView from './DetailView'
 
-describe('<Header /> tests', () => {
+describe('<DetailView /> tests', () => {
   let wrapper
 
   beforeEach(() => {
-    wrapper = shallow(<Header />)
+    wrapper = shallow(<DetailView />)
   })
 
-  it('should render the <Header /> component', () => {
+  it('should render the <DetailView /> component', () => {
     expect(wrapper).toHaveLength(1)
   })
 })
