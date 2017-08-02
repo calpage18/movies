@@ -7,6 +7,7 @@ ____________
 3. Run `yarn` or `npm install`
 4. Run `yarn start` or `npm run start` to start the app
 5. Go to `localhost:8080` if it doesn't automatically open a new browser tab with the running app
+6. Run `yarn test` or `npm run test` to run the unit tests
 
 JavaScript is linted with [JavaScript Standard Style](https://standardjs.com/)
 
