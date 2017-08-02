@@ -7,7 +7,7 @@ import Modal from '../Modal/Modal'
 import DetailView from '../DetailView/DetailView'
 
 import { searchMovies, browseMovies } from '../../api/api'
-import { imageBasePath } from '../../config'
+import { imageBasePath, searchImageWidth, detailImageWidth } from '../../config'
 
 import './search-view.css'
 
@@ -105,7 +105,7 @@ class SearchView extends Component {
               return (
                 <ItemCard
                   key={movie.id}
-                  image={`${imageBasePath}${movie.poster_path}`}
+                  image={`${imageBasePath}${searchImageWidth}${movie.poster_path}`}
                   title={movie.title}
                   date={movie.release_date.split('-')[0]}
                   item={movie}
@@ -125,7 +125,7 @@ class SearchView extends Component {
               <DetailView
                 title={this.state.selectedMovie.title}
                 overview={this.state.selectedMovie.overview}
-                image={`${imageBasePath}${this.state.selectedMovie.poster_path}`}
+                image={`${imageBasePath}${detailImageWidth}${this.state.selectedMovie.poster_path}`}
                 date={this.state.selectedMovie.release_date.split('-')[0]} />
             </Modal>
           )
